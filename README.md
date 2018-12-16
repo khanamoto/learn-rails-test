@@ -1,6 +1,6 @@
 # Rspec学習
 
-## Text
+## Textbook
 『Everyday Rails - RSpecによるRailsテスト入門』
 https://leanpub.com/everydayrailsrspec-jp
 
