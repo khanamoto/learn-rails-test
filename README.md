@@ -30,6 +30,15 @@ $ bundle install --path vendor/bundle
 # -G: .gitignoreファイルを自動作成しない
 # -T: testファイルを作成しない
 $ bundle exec rails new . -G -T
+
+$ vim Gemfile
+# gem追加（必要な部分だけ抜粋）
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+# RSpecインストール
+$ bin/rails g rspec:install
 ```
 
 # Environment
