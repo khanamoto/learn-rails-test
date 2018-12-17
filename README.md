@@ -11,8 +11,8 @@ $ mkdir project; cd $_
 
 # 初期化してGemfile生成
 $ bundle init
-
-# railsをコメントイン
+```
+```
 $ vim Gemfile
 # frozen_string_literal: true
 
@@ -22,7 +22,8 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # 以下をコメントインする
 gem "rails"
-
+```
+```
 # pathオプション付きでプロジェクト配下にインストールする
 $ bundle install --path vendor/bundle
 
@@ -30,15 +31,17 @@ $ bundle install --path vendor/bundle
 # -G: .gitignoreファイルを自動作成しない
 # -T: testファイルを作成しない
 $ bundle exec rails new . -G -T
-
+```
+```
 $ vim Gemfile
 # gem追加（必要な部分だけ抜粋）
 group :development, :test do
   gem 'rspec-rails'
 end
-
+```
+```
 # RSpecインストール
-$ bin/rails g rspec:install
+$ bundle exec rails g rspec:install
 ```
 
 # Environment
