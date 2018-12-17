@@ -31,3 +31,8 @@ $ bundle install --path vendor/bundle
 # -T: testファイルを作成しない
 $ bundle exec rails new . -G -T
 ```
+
+# Environment
+- Ruby 2.5.3
+- Rails 5.2.2
+- Rspec 3.8.1
