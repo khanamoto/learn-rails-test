@@ -62,4 +62,34 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  describe "#create" do
+    context "認証済みのユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+      end
+
+      it "プロジェクトを追加できること" do
+        project_params = FactoryBot.attributes_for(:project)
+        sign_in @user
+        expect {
+          post :create, params: { project: project_params }
+        }.to change(@user.projects, :count).by(1)
+      end
+    end
+
+    context "ゲストとして" do
+      it "302レスポンスを返すこと" do
+        project_params = FactoryBot.attributes_for(:project)
+        post :create, params: { project: project_params }
+        expect(response).to have_http_status "302"
+      end
+
+      it "サインイン画面にリダイレクトすること" do
+        project_params = FactoryBot.attributes_for(:project)
+        post :create, params: { project: project_params }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
 end
