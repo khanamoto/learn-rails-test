@@ -92,4 +92,119 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  describe "#update" do
+    context "認可されたユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: @user)
+      end
+
+      it "プロジェクトを更新できること" do
+        project_params = FactoryBot.attributes_for(:project, name: "New Project Name")
+        sign_in @user
+        patch :update, params: { id: @project.id, project: project_params }
+        expect(@project.reload.name).to eq "New Project Name"
+      end
+    end
+
+    context "認可されていないユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+        other_user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: other_user, name: "Same Old Name")
+      end
+
+      it "プロジェクトを更新できないこと" do
+        project_params = FactoryBot.attributes_for(:project, name: "New Name")
+        sign_in @user
+        patch :update, params: { id: @project.id, project: project_params }
+        expect(@project.reload.name).to eq "Same Old Name"
+      end
+
+      it "ダッシュボードへリダイレクトすること" do
+        project_params = FactoryBot.attributes_for(:project)
+        sign_in @user
+        patch :update, params: { id: @project.id, project: project_params }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "ゲストとして" do
+      before do
+        @project = FactoryBot.create(:project)
+      end
+
+      it "302レスポンスを返すこと" do
+        project_params = FactoryBot.attributes_for(:project)
+        patch :update, params: { id: @project.id, project: project_params }
+        expect(response).to have_http_status "302"
+      end
+
+      it "サインイン画面にリダイレクトすること" do
+        project_params = FactoryBot.attributes_for(:project)
+        patch :update, params: { id: @project.id, project: project_params }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
+
+  describe "#destroy" do
+    context "認可されたユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: @user)
+      end
+
+      it "プロジェクトを削除できること" do
+        sign_in @user
+        expect {
+          delete :destroy, params: { id: @project.id }
+        }.to change(@user.projects, :count).by(-1)
+      end
+    end
+
+    context "認可されていないユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+        other_user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: other_user)
+      end
+
+      it "プロジェクトを削除できないこと" do
+        sign_in @user
+        expect {
+          delete :destroy, params: { id: @project.id }
+        }.to_not change(Project, :count)
+      end
+
+      it "ダッシュボードにリダイレクトすること" do
+        sign_in @user
+        delete :destroy, params: { id: @project.id }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "ゲストとして" do
+      before do
+        @project = FactoryBot.create(:project)
+      end
+
+      it "302レスポンスを返すこと" do
+        delete :destroy, params: { id: @project.id }
+        expect(response).to have_http_status "302"
+      end
+
+      it "サインイン画面にリダイレクトすること" do
+        delete :destroy, params: { id: @project.id }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+
+      it "プロジェクトを削除できないこと" do
+        expect {
+          delete :destroy, params: { id: @project.id }
+        }.to_not change(Project, :count)
+      end
+    end
+  end
 end
