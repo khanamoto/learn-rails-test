@@ -41,7 +41,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -57,6 +56,10 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+  # 保存したHTMLを自動的に開く
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
