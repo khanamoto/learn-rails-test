@@ -11,7 +11,10 @@ RSpec.feature "Projects", type: :feature do
     # click_button "Log in"
 
     # ヘルパーメソッドでDRYにする
-    sign_in_as user
+    # sign_in_as user
+    # Deviseのヘルパーメソッドを使う
+    sign_in user
+    visit root_path
 
     expect {
       click_link "New Project"

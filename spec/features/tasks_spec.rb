@@ -13,7 +13,10 @@ RSpec.feature "Tasks", type: :feature do
     # click_button "Log in"
 
     # ヘルパーメソッドでDRYにする
-    sign_in_as user
+    # sign_in_as user
+    # Deviseのヘルパーメソッドを使う
+    sign_in user
+    visit root_path
 
     click_link "RSpecチュートリアル"
     check "RSpecチュートリアルを完了する"
