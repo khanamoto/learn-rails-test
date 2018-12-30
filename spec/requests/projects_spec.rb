@@ -7,7 +7,6 @@ RSpec.describe "Projects", type: :request do
     end
 
     context "有効な属性値の場合" do
-      # TODO: 本来は1つ追加できるはずだが追加できずに失敗する
       it "プロジェクトを追加できること" do
         project_params = FactoryBot.attributes_for(:project)
         sign_in @user

@@ -6,17 +6,17 @@ module RequestSpecHelper
     base.after(:each) { Warden.test_reset! }
   end
 
-  def sign_in(resourse)
-    login_as(resourse, scope: warden_scope(response))
+  def sign_in(resource)
+    login_as(resource, scope: warden_scope(resource))
   end
 
-  def sign_out(resourse)
-    logout(warden_scope(resourse))
+  def sign_out(resource)
+    logout(warden_scope(resource))
   end
 
   private
 
-  def warden_scope(resourse)
-    resourse.class.name.underscore.to_sym
+  def warden_scope(resource)
+    resource.class.name.underscore.to_sym
   end
 end
