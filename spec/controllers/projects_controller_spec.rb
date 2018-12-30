@@ -10,8 +10,11 @@ RSpec.describe ProjectsController, type: :controller do
       it "正常にレスポンスを返すこと" do
         sign_in @user
         get :index
-        # be_success は非推奨
-        expect(response).to be_successful
+        aggregate_failures do
+          # be_success は非推奨
+          expect(response).to be_successful
+          expect(response).to have_http_status "200"
+        end
       end
 
       it "200レスポンスを返すこと" do

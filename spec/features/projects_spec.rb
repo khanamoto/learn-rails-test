@@ -22,10 +22,16 @@ RSpec.feature "Projects", type: :feature do
       fill_in "Description", with: "Cabybaraを試す"
       click_button "Create Project"
 
+      # expect(page).to have_content "Project was successfully created"
+      # expect(page).to have_content "テストプロジェクト"
+      # expect(page).to have_content "Owner: #{user.name}"
+    }.to change(user.projects, :count).by(1)
+
+    aggregate_failures do
       expect(page).to have_content "Project was successfully created"
       expect(page).to have_content "テストプロジェクト"
       expect(page).to have_content "Owner: #{user.name}"
-    }.to change(user.projects, :count).by(1)
+    end
   end
 
   # ユーザーがログインしてないから失敗する
