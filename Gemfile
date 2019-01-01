@@ -60,6 +60,9 @@ group :test do
   gem 'chromedriver-helper'
   # 保存したHTMLを自動的に開く
   gem 'launchy'
+  gem 'shoulda-matchers',
+    git: 'https://github.com/thoughtbot/shoulda-matchers.git',
+    branch: 'rails-5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
