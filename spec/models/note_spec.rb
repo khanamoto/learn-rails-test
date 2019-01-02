@@ -24,6 +24,8 @@ RSpec.describe Note, type: :model do
   #   puts "This note's user is #{note.user.inspect}"
   # end
 
+  it { is_expected.to have_attached_file(:attachment) }
+
   it "ユーザー、プロジェクト、メッセージがあれば有効な状態であること" do
     note = Note.new(
       message: "This is a sample note.",
