@@ -99,4 +99,17 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  it "名前の取得をメモを作成したユーザーに委譲すること" do
+    # user = FactoryBot.create(:user, first_name: "Fake", last_name: "User")
+    # note = Note.new(user: user)
+
+    # モックとスタブで置き換える
+    user = double("user", name: "Fake User")
+    note = Note.new
+    allow(note).to receive(:user).and_return(user)
+
+    expect(note.user_name).to eq "Fake User"
+    # expect(note.user.first_name).to eq "Fake"
+  end
 end

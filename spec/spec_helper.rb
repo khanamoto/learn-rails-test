@@ -93,4 +93,11 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # focusタグがあればそれを利用する、1つもなければ全体を実行する
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
+  # slowタグがついたexampleは常にスキップする
+  # config.filter_run_excluding slow: true
 end
