@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Projects", type: :feature do
+RSpec.feature "Projects", type: :system do
   scenario "ユーザーは新しいプロジェクトを作成する" do
     user = FactoryBot.create(:user)
 
